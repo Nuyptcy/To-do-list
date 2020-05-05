@@ -1,21 +1,38 @@
-<!DOCTYPE html>>
-<html>
-<meta charset="utf-8"></meta>
-<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-<!-- <script  src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script> -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Shopping Cart</title>
-    <script type="text/javascript">
-    var sum=0;
-    i =1;
-    while(i<=100){
-        sum=sum+i;
-        i++;
-    };
-    alert(sum);
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To-do-list</title>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBL26Gq3VAoQaZXQHHPv2vUlvGc5Zyty1I",
+    authDomain: "to-do-list-5b197.firebaseapp.com",
+    databaseURL: "https://to-do-list-5b197.firebaseio.com",
+    projectId: "to-do-list-5b197",
+    storageBucket: "to-do-list-5b197.appspot.com",
+    messagingSenderId: "992218011327",
+    appId: "1:992218011327:web:45bc9309ec139db106180a",
+    measurementId: "G-Y0GZKYNTDM"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  var database =firebase.database();
+  console.log(database);
+</script>
 </head>
 <body>
-
+    
 </body>
 </html>
