@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>To-do-list</title>
+</head>
+<body>
+  <input id="txt" type="text" placeholder="請輸入行程">
+  <input type="button" id="send" value="送出">
+  <!-- 將資料寫進ul列表 -->
+  <ul id="list"></ul>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-database.js"></script>
 <script>
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -26,7 +33,7 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+  //firebase.analytics();
 
   var database =firebase.database();
   console.log(database);
@@ -42,13 +49,36 @@
 
   //顯示內容
   send.addEventListener('click',function(e){
-    //console.log(txt.value);
+    console.log(txt.value);
     todos.push({content: txt.value})
   })
-  
+
+
+  //即時顯示內容
+  todos.on('value',function(snapshot){
+    //累加html
+    var str = '';
+    //撈回資料
+    //js可讀取的物件格式
+    var data  = snapshot.val();
+    for(var item in data){
+      str+='<li data-key="'+ item +'">'+data[item].content+'</li>';
+      console.log(item);
+
+  }
+  //把撈到的值帶回str裡
+  list.innerHTML = str;
+})
+
+//刪除
+list.addEventListener('click',function(e){
+  if(e.target.nodeName="LI"){
+    //用dataset讀取data-key的物件
+    var key = e.target.dataset.key;
+    todos.child(key).remove();
+  }
+})
+
 </script>
-</head>
-<body>
-    
 </body>
 </html>
