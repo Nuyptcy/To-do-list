@@ -4,9 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/themes/cupertino/jquery-ui.css">
     <title>To-do-list</title>
+    <style>
+    body{
+      background-color: rgb(227, 233, 255);
+    }
+    #card{
+    margin: 10%;
+    }
+    .navbar-color{
+      background-color: rgb(175,127, 232);
+      color: white;
+    }
+    </style>
 </head>
 <body>
+  <div id="card">
+      <nav class="navbar navbar-expand-lg navbar-color">
+          <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" > <!-- diff : 先寫 button 再寫 a.navbar-brand -->
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="#">ＭＭ：</a>
+              
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav">
+              <li class="nav-item active"><a href="#" class="nav-link">MyMoney</a></li>
+              <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-clock"></i></a></li>
+              <li class="nav-item"><a href="#" class="nav-link">C</a></li>
+            </ul>
+          </div>
+      </nav>
+      <div class="container">
+          <div class="row">
+              <div class="form-group col-md-6">
+                <label for="formGroupExampleInput">日期</label>
+                <input type="text" class="form-control" id="">
+              </div>
+                <button type="button" class="btn btn-info"  text-align="center" >Button</button>
+          </div>
+         
+      </div>
+  </div>
   <input id="txt" type="text" placeholder="請輸入行程">
   <input type="button" id="send" value="送出">
   <!-- 將資料寫進ul列表 -->
