@@ -4,59 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Font Awsome CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/themes/cupertino/jquery-ui.css">
     <title>To-do-list</title>
-    <style>
-    body{
-      background-color: rgb(227, 233, 255);
-    }
-    #card{
-    margin: 10%;
-    }
-    .navbar-color{
-      background-color: rgb(175,127, 232);
-      color: white;
-    }
-    </style>
 </head>
 <body>
-  <div id="card">
-      <nav class="navbar navbar-expand-lg navbar-color">
-          <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" > <!-- diff : 先寫 button 再寫 a.navbar-brand -->
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand" href="#">ＭＭ：</a>
-              
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav">
-              <li class="nav-item active"><a href="#" class="nav-link">MyMoney</a></li>
-              <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-clock"></i></a></li>
-              <li class="nav-item"><a href="#" class="nav-link">C</a></li>
-            </ul>
-          </div>
-      </nav>
-      <div class="container">
-          <div class="row">
-              <div class="form-group col-md-6">
-                <label for="formGroupExampleInput">日期</label>
-                <input type="text" class="form-control" id="">
-              </div>
-                <button type="button" class="btn btn-info"  text-align="center" >Button</button>
-          </div>
-         
-      </div>
+<div class="container">
+  <div class="header">
+    <div class="clear">
+      <i class="fa fa-refresh"></i>
+    </div>
+    <div id="date"></div>
   </div>
-  <input id="txt" type="text" placeholder="請輸入行程">
-  <input type="button" id="send" value="送出">
-  <!-- 將資料寫進ul列表 -->
-  <ul id="list"></ul>
+  <div class="content">
+    <ul id="list">
+      <!-- <li class="item">
+        <i class="fa fa-circle-thin complete"></i>
+        <p class="text">Drink Coffee</p>
+        <i class="fa fa-trash-o delete"></i>
+      </li> -->
+    </ul>
+    <div class="add-item">
+      <i id="send" class="fa fa-plus-circle"></i>
+      <input type="text" id="input" placeholder="add a to-do">
+    </div>
+  </div>
+</div>
+
     <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+    https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-database.js"></script>
@@ -79,22 +61,84 @@
   var database =firebase.database();
   console.log(database);
 
-  //dom
-  var txt = document.getElementById('txt');
-  var send = document.getElementById('send');
-  var list = document.getElementById('list');
+  //Select the Elements
+  const clear = document.querySelector('.clear');
+  const dateElement = document.getElementById('date');
+  const list =document.getElementById('list');
+  const input = document.getElementById('input');
+
+  //Classed names
+  const CHECK = "fa -check-circle";
+  const UNCHECK = "fa -circle-thin";
+  const LINE_THROUGH = "lineThrough";
+
+  //Variables
+  let LIST=[];
+  let id = 0;
+  //Show todays date
+  const options ={weekday: "long", month:"short", day:"numeric"};
+  const today = new Date();
+  dateElement.innerHTML = today.toLocaleDateString("en-US",options);
+
+ //add to-do function
+ function addToDo (toDo,id,done,trash){
+ 
+  if(trash){return;}
+
+  const DONE = done ? CHECK : UNCHECK;
+  const LINE = done ? LINE_THROUGH:"";
+  const item =`<li class='item'>
+                <i class='fa fa-circle-thin' job='complete' id='${id}'></i>
+                <p class='text${LINE}'>${toDo}</p>
+                <i class='fa fa-trash-o delete' job='delete' id='${id}'></i>
+              </li>
+              `
+
+        console.log(item);
+        
+      const position = 'beforeend';
+list.insertAdjacentHTML(position,item);
+
+}
+
+let send = document.getElementById('send');
+//add an item to the list user the enter key
+send.addEventListener("click",function(e){
+    // if the input is not empty
+    let toDo = input.value;
+    if(toDo){
+      addToDo(toDo);
+
+      LIST.push({
+        name: toDo,
+        id: id,
+        done: false,
+        trash: false
+      })
+      id++;
+    }
+    input.value ="";
+  
+});
+
 
   //todos connect to Firebase
   //按送出按鈕，寫進DB
   var todos = firebase.database().ref('todos');
-
-  //顯示內容
+  var send = document.getElementById('send')
+  //顯示內容-1
+  /*
   send.addEventListener('click',function(e){
-    console.log(txt.value);
-    todos.push({content: txt.value})
-  })
-
-
+  
+    //todos.push({content: addToDo()})
+    const toDo = input.value;
+      if(toDo){
+        addToDo(toDo);
+      }
+      input.value = "";
+    })
+*/
+  /*
   //即時顯示內容
   todos.on('value',function(snapshot){
     //累加html
@@ -107,11 +151,17 @@
       console.log(item);
 
   }
+  
   //把撈到的值帶回str裡
   list.innerHTML = str;
 })
 
-//刪除
+*/
+
+
+
+//刪除 mothed1
+/*
 list.addEventListener('click',function(e){
   if(e.target.nodeName="LI"){
     //用dataset讀取data-key的物件
@@ -119,7 +169,8 @@ list.addEventListener('click',function(e){
     todos.child(key).remove();
   }
 })
+*/
 
-</script>
+</script> 
 </body>
 </html>
