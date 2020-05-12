@@ -279,6 +279,7 @@ document.addEventListener("click",function(e){
     let toDo = input.value;
     
     if(toDo){
+      
       addToDo(toDo, id, false, false);
 
       LIST.push({
@@ -293,14 +294,18 @@ document.addEventListener("click",function(e){
   
 });
 
-//complete to do
+//complete to do --1
+
 function completeToDo(element){
-element.classList.toggle(CHECK);
+  element.classList.toggle(CHECK);
   element.classList.toggle(UNCHECK);
   element.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH);
   LIST[element.id].done = LIST[element.id].done ? false : true;
 }
 
+
+
+  
 
 //remove to do
 function removeToDo(element){
@@ -359,10 +364,6 @@ function removeToDo(element){
 */
 
 
-//line
-document.getElementsByClassName('complete').addEventListener('click',function(e){
-  console.log('success complete')
-})
 
 //刪除 mothed1
 /*
