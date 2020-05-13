@@ -12,7 +12,7 @@
     <title>To-do-list</title>
 </head>
 <style>
-/* ------------ youtube.com/CodeExplained ------------ */
+/* ------------ background ------------ */
 body{
     padding: 0;
     margin: 0;
@@ -38,6 +38,7 @@ body{
     background-size:cover;
     
 }
+/* ------------ refresh icon ------------ */
 .clear{
     width : 30px;
     height: 30px;
@@ -54,6 +55,8 @@ body{
     text-shadow: 1px 3px 5px #000;
     transform: rotate(45deg);
 }
+
+/* ------------ date ------------ */
 #date{
     position: absolute;
     bottom: 10px;
@@ -63,7 +66,7 @@ body{
     font-family: 'Titillium Web', sans-serif;
 }
 
-/* ------------ content ------------ */
+/* ------------ todolist content ------------ */
 .content{
     width:380px;
     height: 350px;
@@ -77,10 +80,12 @@ body{
 .content::-webkit-scrollbar { 
     display: none; 
 }
+/* ------------ input framework ------------ */
 .content ul{
-    padding:0;
-    margin:0;
+    padding:2px;
+    margin:2px;
 }
+/* ------------ new task ------------ */
 .item{
     width:380px;
     height: 45px;
@@ -101,9 +106,7 @@ body{
 .item i.co:hover{
     cursor: pointer;
 }
-.fa-check-circle{
-    color:#6eb200;
-}
+
 .item p.text{
     position: absolute;
     padding:0;
@@ -118,16 +121,7 @@ body{
     text-decoration: line-through;
     color : #ccc;
 }
-.item i.de{
-    position: absolute;
-    font-size: 25px;
-    right:15px;
-    top:10px;
-}
-.item i.de:hover{
-    color:#af0000;
-    cursor: pointer;
-}
+
 /* ------------ add item ------------ */
 .add-to-do{
     position: relative;
@@ -175,6 +169,32 @@ body{
 }
 
 
+/* When clicked on, add a background color and strike out text */
+/* When clicked on, add a background color and strike out text */
+ul li.checked {
+  background: orange;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+/* Add a "checked" mark when clicked on */
+ul li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+.text{
+  color:red;
+}
+
 
 </style>
 <body>
@@ -187,11 +207,6 @@ body{
   </div>
   <div class="content">
     <ul id="list">
-      <!-- <li class="item">
-        <i class="fa fa-circle-thin complete"></i>
-        <p class="text">Drink Coffee</p>
-        <i class="fa fa-trash-o delete"></i>
-      </li> -->
     </ul>
     <div class="add-item">
       <i id="send" class="fa fa-plus-circle"></i>
@@ -236,6 +251,7 @@ body{
 
   //Classed names
   const CHECK = "fa -check-circle";
+  //const CHECK = document.getElementsByClassName('text');
   const UNCHECK = "fa -circle-thin";
   const LINE_THROUGH = "lineThrough";
 
@@ -257,8 +273,8 @@ body{
  
   const LINE = done ? LINE_THROUGH:"";
   const item =`<li class='item'>
-                <i class='fa fa-circle-thin' complete job='complete' id='${id}'></i>
-                <p class='text ${LINE}'>${toDo}</p>
+                <i class='fa fa-circle-thin' job='complete'  id='${id}'></i>
+                <p class='text checked ${LINE}'>${toDo}</p>
                 <i class='fa fa-trash-o' job='delete' id='${id}'></i>
               </li>
               `
@@ -303,6 +319,12 @@ function completeToDo(element){
   LIST[element.id].done = LIST[element.id].done ? false : true;
 }
 
+/*
+function completeToDo(element){
+  element.target.toggle('CHECK');
+}
+*/
+
 
 
   
@@ -316,11 +338,12 @@ function removeToDo(element){
 //
   //target the items created dynamically
   list.addEventListener("click",function(e){
-    const element = e.target;
-    const elementJob = element.attributes.job.value;
-    console.log(elementJob);
+    var element = e.target;
+    var elementJob = element.attributes.job.value;
+
     if(elementJob =="complete"){
       completeToDo(element);
+      
     }else if(elementJob =="delete"){
       removeToDo(element);
     }
