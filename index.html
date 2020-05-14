@@ -118,8 +118,9 @@ body{
     max-width:285px;
 }
 .lineThrough{
+    color: red;
     text-decoration: line-through;
-    color : #ccc;
+    text-emphasis: filled sesame rgb(158, 68, 68);
 }
 
 /* ------------ add item ------------ */
@@ -192,9 +193,17 @@ ul li.checked::before {
 }
 
 .text{
-  color:red;
+  color: rgb(123,110,102);
 }
 
+.text-ch{
+  color: rgb(123,110,102);
+  text-decoration: line-through red;
+}
+.checked-grn{
+  color:greenyellow;
+  
+}
 
 </style>
 <body>
@@ -250,9 +259,9 @@ ul li.checked::before {
   const input = document.getElementById('input');
 
   //Classed names
-  const CHECK = "fa -check-circle";
+  const CHECK = "fa -fa clock";
   //const CHECK = document.getElementsByClassName('text');
-  const UNCHECK = "fa -circle-thin";
+  const UNCHECK = "fa -fa plus";
   const LINE_THROUGH = "lineThrough";
 
   //Variables
@@ -269,12 +278,13 @@ ul li.checked::before {
 //trash false
   if(trash){return;}
 
-  const DONE = done ? CHECK : UNCHECK;
+  //const DONE = done ? CHECK : UNCHECK;
+
  
   const LINE = done ? LINE_THROUGH:"";
   const item =`<li class='item'>
-                <i class='fa fa-circle-thin' job='complete'  id='${id}'></i>
-                <p class='text checked ${LINE}'>${toDo}</p>
+                <i class='checked fa fa-circle-thin' job='complete'  id='${id}'></i>
+                <p class='text ${LINE}'>${toDo}</p>
                 <i class='fa fa-trash-o' job='delete' id='${id}'></i>
               </li>
               `
@@ -311,23 +321,24 @@ document.addEventListener("click",function(e){
 });
 
 //complete to do --1
+/*
 
+*/
+
+
+
+function completeToDo(element){
+  element.parentNode.querySelector(".checked").classList.toggle("checked-grn");
+  element.parentNode.querySelector(".text").classList.toggle("text-ch");
+}
+/*
 function completeToDo(element){
   element.classList.toggle(CHECK);
   element.classList.toggle(UNCHECK);
   element.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH);
   LIST[element.id].done = LIST[element.id].done ? false : true;
 }
-
-/*
-function completeToDo(element){
-  element.target.toggle('CHECK');
-}
 */
-
-
-
-  
 
 //remove to do
 function removeToDo(element){
