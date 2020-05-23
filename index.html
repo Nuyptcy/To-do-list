@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- CSS Link -->
+    <link rel="stylesheet" type="text/css" href="./main.css">
     <!--Font Awsome CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap CSS -->
@@ -11,201 +13,7 @@
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/themes/cupertino/jquery-ui.css">
     <title>To-do-list</title>
 </head>
-<style>
-/* ------------ background ------------ */
-body{
-    padding: 0;
-    margin: 0;
-    background-color: #d5e6f5;
-    background-repeat: no-repeat;
-    font-family: 'Titillium Web', sans-serif;
-}
 
-/* ------------ container ------------ */
-.container{
-    padding:10px;
-    width:380px;
-    margin:0 auto;
-}
-
-/* ------------ header ------------ */
-.header{
-    width: 380px;
-    height:200px;
-    border-radius: 15px 15px 0 0;
-    position: relative;
-    background-image: url(./header-img.jpeg);
-    background-size:cover;
-    
-}
-/* ------------ refresh icon ------------ */
-.clear{
-    width : 30px;
-    height: 30px;
-    position: absolute;
-    right:20px;
-    top: 20px;
-}
-.clear i{
-    font-size: 30px;
-    color: #FFF;
-}
-.clear i:hover{
-    cursor: pointer;
-    text-shadow: 1px 3px 5px #000;
-    transform: rotate(45deg);
-}
-
-/* ------------ date ------------ */
-#date{
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    color: #FFF;
-    font-size: 25px;
-    font-family: 'Titillium Web', sans-serif;
-}
-
-/* ------------ todolist content ------------ */
-.content{
-    width:380px;
-    height: 350px;
-    max-height:350px;
-    background-color: #FFF;
-    overflow: auto;
-    box-shadow: 4 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-
-}
-.content::-webkit-scrollbar { 
-    display: none; 
-}
-/* ------------ input framework ------------ */
-.content ul{
-    padding:2px;
-    margin:2px;
-}
-/* ------------ new task ------------ */
-.item{
-    width:380px;
-    height: 45px;
-    min-height: 45px;
-    position: relative;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.item i.co{
-    position: absolute;
-    font-size: 25px;
-    padding-left:5px;
-    left:15px;
-    top:10px;
-}
-.item i.co:hover{
-    cursor: pointer;
-}
-
-.item p.text{
-    position: absolute;
-    padding:0;
-    margin:0;
-    font-size: 20px;
-    left:50px;
-    top:5px;
-    background-color: #FFF;
-    max-width:285px;
-}
-.lineThrough{
-    color: red;
-    text-decoration: line-through;
-    text-emphasis: filled sesame rgb(158, 68, 68);
-}
-
-/* ------------ add item ------------ */
-.add-to-do{
-    position: relative;
-    width: 360px;
-    height:40px;
-    background-color: #FFF;
-    padding: 10px;
-    border-top: 1px solid rgba(0,0,0,0.1);
-}
-.add-to-do i{
-    position: absolute;
-    font-size: 40px;
-    color: #4162f6;
-}
-
-.add-to-do input{
-    position: absolute;
-    left: 50px;
-    height: 35px;
-    width: 310px;
-    background-color: transparent;
-    border: none;
-    font-size: 20px;
-    padding-left:10px;
-}
-.add-to-do input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: #4162f6;
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 20px;
-}
-.add-to-do input::-moz-placeholder { /* Firefox 19+ */
-    color: #4162f6;
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 20px;
-}
-.add-to-do input:-ms-input-placeholder { /* IE 10+ */
-    color: #4162f6;
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 20px;
-}
-.add-to-do input:-moz-placeholder { /* Firefox 18- */
-    color: #4162f6;
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 20px;
-}
-
-
-/* When clicked on, add a background color and strike out text */
-/* When clicked on, add a background color and strike out text */
-ul li.checked {
-  background: orange;
-  color: #fff;
-  text-decoration: line-through;
-}
-
-/* Add a "checked" mark when clicked on */
-ul li.checked::before {
-  content: '';
-  position: absolute;
-  border-color: #fff;
-  border-style: solid;
-  border-width: 0 2px 2px 0;
-  top: 10px;
-  left: 16px;
-  transform: rotate(45deg);
-  height: 15px;
-  width: 7px;
-}
-
-.text{
-  color: rgb(123,110,102);
-}
-
-.text-ch{
-  color: rgb(123,110,102);
-  text-decoration: line-through red;
-}
-.checked-grn{
-  color:greenyellow;
-  
-}
-
-</style>
 <body>
 <div class="container">
   <div class="header">
@@ -295,13 +103,10 @@ list.insertAdjacentHTML(position,item);
 
 }
 
-//var todos = firebase.database().ref('todos');
-
-
-
-//add an item to the list user the enter key
+/*
 document.addEventListener("click",function(e){
-    // if the input is not empty
+  console.log("todos")
+  
     let toDo = input.value;
     
     if(toDo){
@@ -317,14 +122,10 @@ document.addEventListener("click",function(e){
       id++;
     }
     input.value ="";
+    
   
 });
-
-//complete to do --1
-/*
-
 */
-
 
 
 function completeToDo(element){
@@ -343,7 +144,7 @@ function completeToDo(element){
 //remove to do
 function removeToDo(element){
   element.parentNode.parentNode.removeChild(element.parentNode);
-  LIST[element.id].trash = true;
+  //LIST[element.id].trash = true;
 }
 
 //
@@ -361,24 +162,31 @@ function removeToDo(element){
   })
   
   //todos connect to Firebase
-/*
+
   var todos = firebase.database().ref('todos');
-  //顯示內容-1
+  //顯示內容
   
   send.addEventListener('click',function(e){
   
+    console.log("todos")
+    //可寫進資料庫，無法顯示螢幕
     
-    const toDo = input.value;
-      if(toDo){
-        addToDo(toDo);
-        todos.push({content: toDo})
+    const addItem = document.getElementsByClassName('add-item');
+    const inputVal = input.value;
+      if(inputVal){
+        addToDo(inputVal);
+        todos.push(
+          //{content: addItem, text: inputVal})
+          {content: addItem})
+          ;
       }
       input.value = "";
+      
     })
 
-  */
+  
   //即時顯示內容
-  /*
+  
   todos.on('value',function(snapshot){
     //累加html
     var str = '';
@@ -387,16 +195,12 @@ function removeToDo(element){
     var data  = snapshot.val();
     for(var item in data){
       str+='<li data-key="'+ item +'">'+data[item].content+'</li>';
-      console.log(item);
 
   }
   
   //把撈到的值帶回str裡
   list.innerHTML = str;
 })
-
-*/
-
 
 
 //刪除 mothed1
